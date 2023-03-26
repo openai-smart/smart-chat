@@ -1,28 +1,20 @@
 package smart
 
 import (
-	"github.com/google/uuid"
 	sc "github.com/openai-smart/smart-chat"
 )
 
-// CompletionHandler 回复消息处理函数
-type CompletionHandler func(msg *sc.Message) error
+// Configure AI配置信息
+type Configure any
 
-// Smart 人工智能
+// Smart 人工智能/AI
 type Smart interface {
+	// Platform 平台
+	Platform() string
 
-	//AddCompletionHandler 新增回复信息处理函数，注意这是在原来基础上新增
-	AddCompletionHandler(CompletionHandler)
-
-	//SetCompletionHandler 清空回复信息处理函数，添加此次设置的函数
-	SetCompletionHandler(CompletionHandler)
-
-	//Question 提问
-	Question(*sc.Message) error
+	// Ask 提问
+	Ask(sc.Question) (sc.Answer, error)
 
 	// Balance 余额
-	Balance() int
-
-	// UUID 唯一ID
-	UUID() uuid.UUID
+	Balance() (float32, error)
 }
